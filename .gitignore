@@ -1,0 +1,26 @@
+# Dependency directories
+node_modules/
+
+# Environment variables file (if you have one)
+.env
+
+# IDE/editor specific files
+.vscode/
+.idea/
+
+# macOS specific files
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Compiled binary addons (if you're using node-gyp or similar)
+build/
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# User-specific files
+npm-debug.log*
