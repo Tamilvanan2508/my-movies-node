@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from "@hapi/joi";
+import { sendResponse } from "../utils/utils";
 
 // Define Joi schema for user registration validation
 const registerValidationSchema = Joi.object({
@@ -24,7 +25,8 @@ export const validateRegistration = (
 ) => {
   const { error } = registerValidationSchema.validate(req.body);
   if (error) {
-    return res.status(400).json({ error: error.details[0].message });
+    const message = error.details[0].message;
+    return sendResponse(res, false, null, message, 400);
   }
   next();
 };
@@ -37,7 +39,8 @@ export const validateLogin = (
 ) => {
   const { error } = loginValidationSchema.validate(req.body);
   if (error) {
-    return res.status(400).json({ error: error.details[0].message });
+    const message = error.details[0].message;
+    return sendResponse(res, false, null, message, 400);
   }
   next();
 };

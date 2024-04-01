@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { userModel } from "../models/user";
+import User from "../models/user";
 import { generateSecretKey } from "../utils/utils";
 
 const SECRET_KEY = generateSecretKey();
@@ -8,17 +8,17 @@ const SECRET_KEY = generateSecretKey();
 export const authService = {
   register: async (requestData: any) => {
     const { email, password } = requestData;
-    const existingUser = await userModel.findOne({ email });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       throw new Error("User already exists");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    await userModel.create({ ...requestData, password: hashedPassword });
+    await User.create({ ...requestData, password: hashedPassword });
   },
 
   login: async (email: string, password: string) => {
-    const user = await userModel.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       throw new Error("User not found");
     }
