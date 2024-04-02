@@ -5,10 +5,28 @@ import { sendResponse } from "@utils/utils";
 
 // Get all users
 export const getAllUsers = async (req: Request, res: Response) => {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+  const skip = (page - 1) * limit;
+
   try {
-    const users = await User.find({}, { password: 0 });
+    const totalUsers = await User.countDocuments({});
+    const users = await User.find({}, { password: 0 }).skip(skip).limit(limit);
     const message = "Fetched users successfully";
-    sendResponse(res, true, { data: users }, message);
+    const totalPages = Math.ceil(totalUsers / limit);
+
+    let meta = {};
+    if (users.length) {
+      meta = {
+        currentPage: page,
+        totalPages: totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+        totalCount: totalUsers,
+      };
+    }
+
+    sendResponse(res, true, { data: users, meta }, message);
   } catch (error) {
     const message = "Internal Server Error";
     sendResponse(res, false, null, message, 500);
