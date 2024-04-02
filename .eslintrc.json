@@ -10,6 +10,11 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
   "rules": {
     "no-console": "warn",
     //* Avoid Bugs

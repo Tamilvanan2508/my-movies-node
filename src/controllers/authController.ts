@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import User from "../models/user";
-import { authService } from "../services/authService";
-import { sendResponse } from "../utils/utils";
+import User from "@models/user";
+import { authService } from "@services/authService";
+import { sendResponse } from "@utils/utils";
 
 export const register = async (req: Request, res: Response) => {
   try {

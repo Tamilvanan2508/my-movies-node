@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Joi from "@hapi/joi";
-import { sendResponse } from "../utils/utils";
+import { sendResponse } from "@utils/utils";
 
 // Define Joi schema for user registration validation
 const registerValidationSchema = Joi.object({

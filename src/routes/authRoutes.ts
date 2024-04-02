@@ -1,9 +1,9 @@
 import express from "express";
-import { register, login } from "../controllers/authController";
+import { register, login } from "@controllers/authController";
 import {
   validateRegistration,
   validateLogin,
-} from "../validators/userValidation";
+} from "@validators/userValidation";
 
 const router = express.Router();
 

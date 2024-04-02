@@ -19,6 +19,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "mongoose": "^8.2.4"
   },
   "devDependencies": {
@@ -33,5 +34,16 @@
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3"
+  },
+  "_moduleAliases": {
+    "@config": "src/config",
+    "@controllers": "src/controllers",
+    "@data": "src/data",
+    "@middleware": "src/middleware",
+    "@models": "src/models",
+    "@routes": "src/routes",
+    "@services": "src/services",
+    "@utils": "src/utils",
+    "@validators": "src/validators"
   }
 }

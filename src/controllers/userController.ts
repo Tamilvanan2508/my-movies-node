@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import User from "../models/user";
-import { userService } from "../services/userService";
-import { sendResponse } from "../utils/utils";
+import User from "@models/user";
+import { userService } from "@services/userService";
+import { sendResponse } from "@utils/utils";
 
 // Get all users
 export const getAllUsers = async (req: Request, res: Response) => {

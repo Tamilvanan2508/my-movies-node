@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../models/user";
-import { generateSecretKey } from "../utils/utils";
+import User from "@models/user";
+import { generateSecretKey } from "@utils/utils";
 
 const SECRET_KEY = generateSecretKey();
 
