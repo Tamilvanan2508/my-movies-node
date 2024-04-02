@@ -1,19 +1,8 @@
-import mongoose, { ConnectOptions } from "mongoose";
-import { config } from "../config/config";
-
-interface MyConnectOptions extends ConnectOptions {
-  useNewUrlParser?: boolean;
-  useUnifiedTopology?: boolean;
-}
+import mongoose from "mongoose";
 
 export const connectDB = async () => {
   try {
-    const options: MyConnectOptions = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    };
-
-    await mongoose.connect(config.dbUrl, options);
+    await mongoose.connect(process.env.MONGODB_URI ?? "");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
