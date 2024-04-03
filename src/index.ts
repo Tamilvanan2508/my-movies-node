@@ -8,6 +8,7 @@ import authRoutes from "@routes/authRoutes";
 import userRoutes from "@routes/userRoutes";
 import movieRoutes from "@routes/movieRoutes";
 import wishlistRoutes from "@routes/wishlistRoutes";
+import commentRoutes from "@routes/commentRoutes";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", movieRoutes);
 app.use("/api", wishlistRoutes);
+app.use("/api", commentRoutes);
 
 connectDB().then(() => {
   app.listen(config.port, () => {
