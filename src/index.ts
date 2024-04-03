@@ -16,10 +16,10 @@ const app: Express = express();
 
 app.use(bodyParser.json());
 app.use("/api/auth", authRoutes);
-app.use("/api", userRoutes);
-app.use("/api", movieRoutes);
-app.use("/api", wishlistRoutes);
-app.use("/api", commentRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/movies", movieRoutes);
+app.use("/api/wishlist", wishlistRoutes);
+app.use("/api/comments", commentRoutes);
 
 connectDB().then(() => {
   app.listen(config.port, () => {

@@ -3,6 +3,6 @@ import { getAllMovies } from "@controllers/movieController";
 
 const router = express.Router();
 
-router.get("/movies", getAllMovies);
+router.get("/", getAllMovies);
 
 export default router;
