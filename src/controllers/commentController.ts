@@ -4,6 +4,10 @@ import { userService } from "@services/userService";
 import { movieService } from "@services/movieService";
 import { commentService } from "@services/commentServices";
 import { sendResponse } from "@utils/utils";
+import { responseMessages } from "@data/index";
+
+const { commentsFetched, commentAdded, commentRemoved, internalServerError } =
+  responseMessages;
 
 export const getAllComments = async (req: Request, res: Response) => {
   try {
@@ -12,14 +16,8 @@ export const getAllComments = async (req: Request, res: Response) => {
     const skip = (page - 1) * limit;
 
     const query: any = {};
-
-    if (req.query.movieId) {
-      query.movieId = req.query.movieId;
-    }
-
-    if (req.query.userId) {
-      query.userId = req.query.userId;
-    }
+    if (req.query.movieId) query.movieId = req.query.movieId;
+    if (req.query.userId) query.userId = req.query.userId;
 
     const totalComments = await Comment.countDocuments(query);
     const comments = await Comment.find(query).skip(skip).limit(limit);
@@ -28,22 +26,19 @@ export const getAllComments = async (req: Request, res: Response) => {
     const hasNextPage = page < totalPages;
     const hasPreviousPage = page > 1;
 
-    let meta = {};
-    if (comments.length) {
-      meta = {
-        currentPage: page,
-        totalPages,
-        hasNextPage,
-        hasPreviousPage,
-        totalCount: totalComments,
-      };
-    }
+    const meta = comments.length
+      ? {
+          currentPage: page,
+          totalPages,
+          hasNextPage,
+          hasPreviousPage,
+          totalCount: totalComments,
+        }
+      : {};
 
-    const message = "Comments fetched successfully";
-    sendResponse(res, true, { data: comments, meta }, message);
+    sendResponse(res, true, { data: comments, meta }, commentsFetched);
   } catch (error) {
-    const message = "Internal Server Error";
-    sendResponse(res, false, null, message, 500);
+    sendResponse(res, false, null, internalServerError, 500);
   }
 };
 
@@ -53,7 +48,6 @@ export const addComment = async (req: Request, res: Response) => {
 
     await userService.getUserById(userId);
     await movieService.getMovieById(movieId);
-
     commentService.validateComment(commentText);
 
     const comment = await commentService.addComment(
@@ -62,24 +56,18 @@ export const addComment = async (req: Request, res: Response) => {
       commentText
     );
 
-    const message = "Comment added successfully";
-    sendResponse(res, true, comment, message);
+    sendResponse(res, true, comment, commentAdded);
   } catch (error) {
-    const err = error as Error;
-    sendResponse(res, false, null, err.message, 500);
+    sendResponse(res, false, null, (error as Error).message, 500);
   }
 };
 
 export const removeComment = async (req: Request, res: Response) => {
   try {
     const commentId = req.params.commentId;
-
     const deletedComment = await commentService.removeComment(commentId);
-
-    const message = "Comment removed successfully";
-    sendResponse(res, true, deletedComment, message);
+    sendResponse(res, true, deletedComment, commentRemoved);
   } catch (error) {
-    const err = error as Error;
-    sendResponse(res, false, null, err.message, 500);
+    sendResponse(res, false, null, (error as Error).message, 500);
   }
 };

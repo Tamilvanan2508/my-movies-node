@@ -1,0 +1,16 @@
+export const responseMessages = {
+  successfulRegistration: "User registered successfully",
+  successfulLogin: "User logged in successfully",
+  commentsFetched: "Comments fetched successfully",
+  commentAdded: "Comment added successfully",
+  commentRemoved: "Comment removed successfully",
+  internalServerError: "Internal Server Error",
+  moviesFetched: "Fetched movies successfully",
+  usersFetched: "Fetched users successfully",
+  userFetched: "Fetched user details successfully",
+  userUpdated: "User updated successfully",
+  userDeleted: "User deleted successfully",
+  wishlistsFetched: "Wishlists fetched successfully",
+  movieAddedToWishlist: "Movie added to wishlist",
+  movieRemovedFromWishlist: "Movie removed from wishlist",
+};
